@@ -1,0 +1,33 @@
+{
+	"name": "prpose-server",
+	"version": "0.0.1",
+	"description": "Backend de PrPose",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/granpepito/prpose-server.git"
+	},
+	"author": "granpepito",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/granpepito/prpose-server/issues"
+	},
+	"homepage": "https://github.com/granpepito/prpose-server#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^8.0.0",
+		"express": "^4.17.1",
+		"mysql": "^2.17.1",
+		"mysql2": "^1.6.5",
+		"passport": "^0.4.0",
+		"passport-local": "^1.0.0"
+	},
+	"devDependencies": {
+		"eslint": "^6.1.0",
+		"nodemon": "^1.19.1"
+	}
+}
