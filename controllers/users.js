@@ -54,7 +54,7 @@ exports.findByUsername = (username, callback) => {
 
 exports.findByEmail = (email, callback) => {
     process.nextTick(()=> {
-        const query =
+        
     })
 }
 
