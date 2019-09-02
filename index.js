@@ -2,7 +2,7 @@ const express = require('express'),
 	session = require('express-session'),
 	dotenv = require('dotenv'),
 	cors = require('cors'),
-	passport = require('passport');
+	passport = require('./controllers/auth');
 
 const app = express();
 
@@ -15,11 +15,11 @@ const PORT = process.env.PORT || 8080,
 	SESS_SECRET = process.env.SESS_SECRET,
 	SESS_SECURE = process.env.SESS_SECURE;
 
-const authRoutes = require('./controllers/auth'),
-	usersRoutes = require('./controllers/users'),
-	postsRoutes = require('./controllers/posts'),
-	themesRoutes = require('./controllers/themes'),
-	commentsRoutes = require('./controllers/users');
+const authRoutes = require('./routes/auth'),
+	usersRoutes = require('./routes/users'),
+	postsRoutes = require('./routes/posts'),
+	themesRoutes = require('./routes/themes'),
+	commentsRoutes = require('./routes/users');
 
 app.use('/files', express.static('public'))
 
@@ -38,6 +38,8 @@ app.use('/files', express.static('public'))
 			}
 		})
 	)
+	.use(passport.initialize())
+	.use(passport.session())
 
 	.use(
 		cors({
@@ -47,14 +49,11 @@ app.use('/files', express.static('public'))
 		})
 	)
 
-	.use(passport.initialize())
-	.use(passport.session())
-
 	.use('/auth', authRoutes)
-	.use('/users', usersRoutes)
-	.use('/themes', themesRoutes)
-	.use('/posts', postsRoutes)
-	.use('/comments', commentsRoutes)
+	//.use('/users', usersRoutes)
+	//.use('/themes', themesRoutes)
+	//.use('/posts', postsRoutes)
+	//.use('/comments', commentsRoutes)
 
 	.use((req, res) => res.sendStatus(404))
 
