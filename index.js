@@ -2,7 +2,7 @@ const express = require('express'),
 	session = require('express-session'),
 	dotenv = require('dotenv'),
 	cors = require('cors'),
-	passport = require('./controllers/auth');
+	
 
 const app = express();
 
@@ -10,7 +10,7 @@ dotenv.config({
 	path: './.env'
 });
 
-const PORT = process.env.PORT || 8080,
+const PORT = process.env.PORT || 3000,
 	SESS_ID = process.env.SESS_ID,
 	SESS_SECRET = process.env.SESS_SECRET,
 	SESS_SECURE = process.env.SESS_SECURE;
@@ -38,8 +38,6 @@ app.use('/files', express.static('public'))
 			}
 		})
 	)
-	.use(passport.initialize())
-	.use(passport.session())
 
 	.use(
 		cors({
@@ -49,7 +47,11 @@ app.use('/files', express.static('public'))
 		})
 	)
 
-	.use('/auth', authRoutes)
+	.get('/', (req, res) => {
+		res.send('ouoi');
+	})
+
+	//.use('/auth', authRoutes)
 	//.use('/users', usersRoutes)
 	//.use('/themes', themesRoutes)
 	//.use('/posts', postsRoutes)
