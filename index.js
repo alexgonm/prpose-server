@@ -62,7 +62,7 @@ app.use('/files', express.static('public'))
 	)
 
 	.use('/auth', authRoutes)
-	//.use('/users', usersRoutes)
+	.use('/users', usersRoutes)
 	//.use('/themes', themesRoutes)
 	//.use('/posts', postsRoutes)
 	//.use('/comments', commentsRoutes)
