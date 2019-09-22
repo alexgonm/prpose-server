@@ -1,9 +1,9 @@
-const { logIn, logOut, register } = require('../controllers/auth');
+const { logIn, register } = require('../controllers/auth');
 const router = require('express').Router();
 
 router
 	.post('/login', (req, res) => {
-		if (req.session.isLoggedIn) {
+		if (req.session.username) {
 			res.sendStatus(401);
 		} else {
 			logIn(req.body, (err, result) => {
@@ -13,7 +13,7 @@ router
 				} else if (result) {
 					//
 					req.session.username = result;
-					req.session.isLoggedIn = true;
+
 					res.sendStatus(200);
 				} else {
 					//Wrong credentials
@@ -24,7 +24,7 @@ router
 	})
 
 	.post('/register', (req, res) => {
-		if (req.session.isLoggedIn) {
+		if (req.session.username) {
 			res.sendStatus(401);
 		} else {
 			register(req.body, (err, result) => {
@@ -38,6 +38,19 @@ router
 		}
 	})
 
-	.post('/logout', logOut);
+	.post('/logout', (req, res) => {
+		//Log out
+		if (!req.session.username) {
+			res.sendStatus(401);
+		} else {
+			//Destroying the session
+			req.session.destroy(err => {
+				if (err) {
+					console.error(err);
+				}
+				res.sendStatus(200);
+			});
+		}
+	});
 
 module.exports = router;

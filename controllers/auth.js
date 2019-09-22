@@ -19,14 +19,14 @@ exports.logIn = (userInformations, cb) => {
 			: ' SELECT email, username, password FROM users WHERE username = ?';
 
 		try {
-			const [rows] = await db.execute(query, [userIdentifer]);
+			const [rows, fields] = await db.execute(query, [userIdentifer]);
 
 			if (rows.length === 0) {
 				cb(null, false); //No identifier found
 			} else {
 				//return username if right password
 				const match = await bcrypt.compare(password, rows[0].password);
-
+				console.log(rows[0].username);
 				if (match) {
 					cb(null, rows[0].username);
 				} else {
@@ -47,7 +47,7 @@ exports.register = (userInformations, cb) => {
 
 		//Checking if username and/or email address is already used by another account
 		try {
-			const [rows] = await db.execute(
+			const [rows, fields] = await db.execute(
 				'SELECT username, email FROM users WHERE username = ? OR email = ?',
 				[username, email]
 			);
@@ -94,19 +94,4 @@ exports.register = (userInformations, cb) => {
 			return cb(error);
 		}
 	});
-};
-
-exports.logOut = (req, res) => {
-	//Log out
-	if (!req.session.isLoggedIn) {
-		res.sendStatus(401);
-	} else {
-		//Destroying the session
-		req.session.destroy(err => {
-			if (err) {
-				console.error(err);
-			}
-			res.sendStatus(200);
-		});
-	}
 };
