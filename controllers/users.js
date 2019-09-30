@@ -65,7 +65,7 @@ const User = {
 		if (Object.keys(queryUrl).length === 0) {
 			queryUrl.offset = 0;
 			queryUrl.limit = 25;
-			queryUrl.order = 'desc';
+			queryUrl.order = 'new';
 		}
 
 		//TODO: use the options from queryUrl, add the order types (best, top, new)

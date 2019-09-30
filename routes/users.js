@@ -2,7 +2,7 @@ const User = require('../controllers/users'),
 	router = require('express').Router();
 
 router
-	.get('/all', (req, res) => {
+	.get('/', (req, res) => {
 		const { query } = req;
 		User.findAll(query, (err, results) => {
 			if (err) {
