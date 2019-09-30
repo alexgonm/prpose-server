@@ -63,10 +63,8 @@ app.use('/files', express.static('public'))
 
 	.use('/auth', authRoutes)
 	.use('/users', usersRoutes)
-	//.use('/themes', themesRoutes)
+	.use('/themes', themesRoutes)
 	//.use('/posts', postsRoutes)
 	//.use('/comments', commentsRoutes)
-
-	.use((req, res) => res.sendStatus(404))
 
 	.listen(PORT, () => console.log(`Backend running on port ${PORT}.`));
