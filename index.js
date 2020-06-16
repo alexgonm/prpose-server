@@ -8,12 +8,12 @@ const express = require('express'),
 const app = express(),
 	redisClient = redis.createClient();
 
-redisClient.on('error', err => {
+redisClient.on('error', (err) => {
 	console.error('Redis error: ', err);
 });
 
 dotenv.config({
-	path: './.env'
+	path: './.env',
 });
 
 const PORT = process.env.PORT || 3000,
@@ -43,13 +43,13 @@ app.use('/files', express.static('public'))
 			saveUninitialized: true,
 			cookie: {
 				maxAge: 600000000,
-				secure: SESS_SECURE
+				secure: SESS_SECURE,
 			},
 			store: new redisStore({
 				host: REDIS_HOST,
 				port: REDIS_PORT,
-				client: redisClient
-			})
+				client: redisClient,
+			}),
 		})
 	)
 
@@ -57,14 +57,14 @@ app.use('/files', express.static('public'))
 		cors({
 			origin: ADDRESS_ORIGIN || 'http://localhost:3000',
 			credentials: true,
-			methods: ['GET', 'PUT', 'POST', 'DELETE']
+			methods: ['GET', 'PUT', 'POST', 'DELETE'],
 		})
 	)
 
 	.use('/auth', authRoutes)
 	.use('/users', usersRoutes)
 	.use('/themes', themesRoutes)
-	.use('/posts', postsRoutes)
+	//.use('/posts', postsRoutes)
 	//.use('/comments', commentsRoutes)
 
 	.listen(PORT, () => console.log(`Backend running on port ${PORT}.`));
