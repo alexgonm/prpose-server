@@ -30,9 +30,11 @@ const Themes = {
 			});
 	},
 	findPosts({ params, queryUrl }, cb) {
-		if (!(queryUrl.offset && queryUrl.limit)) {
+		//TODO: fix queryUrl access
+		if (!queryUrl || !(queryUrl.offset || queryUrl.limit)) {
 			queryUrl.offset = 0;
 			queryUrl.limit = 25;
+			queryUrl.order = 'best';
 		}
 		//TODO: add comments for each query
 		let query;
